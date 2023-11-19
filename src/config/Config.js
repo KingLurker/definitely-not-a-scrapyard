@@ -22,4 +22,4 @@ const auth = getAuth(app);
 const fs = getFirestore(app);
 const storage = getStorage(app);
 
-export { auth, fs, storage }; // export the services to use in other files
+export { auth, fs, storage, app }; // export the services to use in other files

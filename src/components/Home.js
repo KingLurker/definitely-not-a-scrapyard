@@ -9,20 +9,24 @@ export const Home = () => {
   // State to store the current user
   const [user, setUser] = useState(null);
   const [products, setProducts] = useState([]);
-  const uid = GetUserUid();
+  const uid = useUserUid();
 
   const navigate = useNavigate();
 
-  // gettin current user uid
-  function GetUserUid() {
+  // Custom hook to get the current user uid
+  function useUserUid() {
     const [uid, setUid] = useState(null);
+
     useEffect(() => {
-      auth.onAuthStateChanged((user) => {
+      const unsubscribe = auth.onAuthStateChanged((user) => {
         if (user) {
           setUid(user.uid);
         }
       });
+
+      return unsubscribe; // Correctly return the unsubscribe function
     }, []);
+
     return uid;
   }
 
