@@ -6,7 +6,7 @@ import { shoppingCart } from "react-icons-kit/feather/shoppingCart";
 import { auth } from "../config/Config";
 import { useNavigate } from "react-router-dom";
 
-export const Navbar = ({ user }) => {
+export const Navbar = ({ user, totalProducts }) => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -19,34 +19,37 @@ export const Navbar = ({ user }) => {
     <div className="navbar">
       <div className="leftside">
         <div className="logo">
-          <img src={logo} alt="logo"></img>
+          <img src={logo} alt="logo" />
         </div>
       </div>
       <div className="rightside">
         {!user && (
           <>
             <div>
-              <Link to="signup" className="navlink">
+              <Link className="navlink" to="signup">
                 SIGN UP
               </Link>
             </div>
             <div>
-              <Link to="login" className="navlink">
+              <Link className="navlink" to="login">
                 LOGIN
               </Link>
             </div>
           </>
         )}
+
         {user && (
           <>
             <div>
-              <Link to="/">{user}</Link>
+              <Link className="navlink" to="/">
+                {user}
+              </Link>
             </div>
             <div className="cart-menu-btn">
               <Link className="navlink" to="cart">
-                <Icon icon={shoppingCart} size={20}></Icon>
+                <Icon icon={shoppingCart} size={20} />
               </Link>
-              {/* <span className="cart-indicator">{totalQty}</span> */}
+              <span className="cart-indicator">{totalProducts}</span>
             </div>
             <div className="btn btn-danger btn-md" onClick={handleLogout}>
               LOGOUT
