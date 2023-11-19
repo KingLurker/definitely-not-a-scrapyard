@@ -7,15 +7,22 @@ import {
   doc,
   query,
   getDoc,
+  getDocs,
+  deleteDoc,
   onSnapshot,
   updateDoc,
 } from "firebase/firestore";
 import StripeCheckout from "react-stripe-checkout";
+import axios from "axios";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
 
 export const Cart = () => {
   // State to store the current user
   const [user, setUser] = useState(null);
   const [cartProducts, setCartProducts] = useState([]);
+  const navigate = useNavigate();
 
   // Effect to get the current user
   useEffect(() => {
@@ -42,6 +49,7 @@ export const Cart = () => {
     return () => unsubscribe();
   }, []);
 
+  // Effect to retrieve the user's cart
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
@@ -135,8 +143,6 @@ export const Cart = () => {
 
   const totalQty = qty.reduce(reducerOfQty, 0);
 
-  // console.log(totalQty);
-
   // getting the TotalProductPrice from cartProducts in a seperate array
   const price = cartProducts.map((cartProduct) => {
     return cartProduct.TotalProductPrice;
@@ -147,6 +153,39 @@ export const Cart = () => {
     accumulator + currentValue;
 
   const totalPrice = price.reduce(reducerOfPrice, 0);
+
+  // charging payment
+  const handleToken = async (token) => {
+    console.log(token);
+    const cart = { name: "All Products", totalPrice };
+    const response = await axios.post("http://dnas.netlify.app/checkout", {
+      token,
+      cart,
+    });
+    console.log(response);
+    let { status } = response.data;
+    console.log(status);
+    if (response.data.status === "success") {
+      navigate("/");
+      toast.success("Your order has been placed successfully", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: false,
+        progress: undefined,
+      });
+      // Clear the cart after successful checkout
+      const uid = auth.currentUser.uid;
+      const cartSnapshot = await getDocs(collection(fs, `Cart ${uid}`));
+      cartSnapshot.docs.forEach(async (document) => {
+        await deleteDoc(doc(fs, `Cart ${uid}`, document.id));
+      });
+    } else {
+      alert("Something went wrong in checkout");
+    }
+  };
 
   return (
     <>
@@ -172,7 +211,14 @@ export const Cart = () => {
               Total Price to Pay: <span>$ {totalPrice}</span>
             </div>
             <br></br>
-            <StripeCheckout></StripeCheckout>
+            <StripeCheckout
+              stripeKey="pk_test_51OCSkCAZRFbpLFC7JTVTVHJnT1wWKlX2Q0PLZXGlly2HfwzBj9CEg6OdMWoBYj5C9CuO1IcLxiU8371Yr4RQjhdB00kFvO4OVM"
+              token={handleToken}
+              billingAddress
+              shippingAddress
+              name="All Products"
+              amount={totalPrice * 100}
+            ></StripeCheckout>
           </div>
         </div>
       )}
