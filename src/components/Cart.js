@@ -158,7 +158,7 @@ export const Cart = () => {
   const handleToken = async (token) => {
     console.log(token);
     const cart = { name: "All Products", totalPrice };
-    const response = await axios.post("http://dnas.netlify.app/checkout", {
+    const response = await axios.post("https://dnas.netlify.app/checkout", {
       token,
       cart,
     });
