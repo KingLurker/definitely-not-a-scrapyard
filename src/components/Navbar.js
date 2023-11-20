@@ -41,6 +41,11 @@ export const Navbar = ({ user, totalProducts }) => {
         {user && (
           <>
             <div>
+              <Link className="navlink" to="addproduct">
+                ADD PRODUCTS
+              </Link>
+            </div>
+            <div>
               <Link className="navlink" to="/">
                 {user}
               </Link>
