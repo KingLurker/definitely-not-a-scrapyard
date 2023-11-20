@@ -76,6 +76,21 @@ export const Navbar = ({ user, totalProducts }) => {
               </Link>
             </div>
             <div>
+              <Link className="navlink" to="modifyusers">
+                MODIFY USERS
+              </Link>
+            </div>
+            <div>
+              <Link className="navlink" to="modifyitems">
+                MODIFY ITEMS
+              </Link>
+            </div>
+            <div>
+              <Link className="navlink" to="coupons">
+                MANAGE COUPONS
+              </Link>
+            </div>
+            <div>
               <Link className="navlink" to="/">
                 Admin: {user}
               </Link>
