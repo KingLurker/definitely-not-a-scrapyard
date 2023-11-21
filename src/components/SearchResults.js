@@ -23,8 +23,10 @@ const SearchResults = () => {
 
   return (
     <div>
+      <div className="searchbar">
       <Search onSearch={searchProduct} />
       <Products products={products}/>
+      </div>
     </div>
   );
 };

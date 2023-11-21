@@ -123,7 +123,9 @@ export const Home = () => {
   return (
     <>
       <Navbar user={user} />
+      <div className="searchbar">
       <SearchBar onSearch={handleSearch} />
+      </div>
       <div className='container-fluid'>
         <div className='my-products'>
           {searchResults.length > 0 ? (
@@ -133,7 +135,7 @@ export const Home = () => {
               ))}
             </div>
           ) : (
-            <div>Please wait or no products found...</div>
+            <div>No products found...</div>
           )}
         </div>
       </div>

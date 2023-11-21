@@ -313,6 +313,13 @@ body {
   background-color: rgb(54, 54, 54);
 }
 
+/* searchbar */
+.searchbar {
+  margin-left: 15%;
+  margin-top: -7%;
+  position:absolute;
+  width:auto;
+}
 /* filter */
 .filter-products-main-box{
   width: 95%;
