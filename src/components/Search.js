@@ -1,16 +1,31 @@
-import React, { useState, useEffect } from 'react';
-import {fs} from '../config/Config';
-import { doc, getDoc, getDocs, collection, setDoc } from "firebase/firestore";
+import React, { useState } from 'react';
 
-const Search = () => {
-  const [products, setProducts] = useState([]);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [searchResults, setSearchResults] = useState([]);
+const Search = ({ onSearch }) => {
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const handleSearch = () => {
+    onSearch(searchTerm);
+  };
+
+  return (
+    <div>
+      <input
+        type="text"
+        placeholder="Search..."
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+      />
+      <button onClick={handleSearch}>Search</button>
+    </div>
+  );
+};
+
+export default Search;
 
   /*
   useEffect(() => {
     const fetchProducts = async () => {
-      const snapshot = await fs.database().ref('products').orderByChild('name')
+      const snapshot = await fs.database().ref('products').orderByChild('title')
           .startAt(searchQuery.toLowerCase()).endAt(searchQuery.toLowerCase + '\uf8ff')
           .once('value');
 
@@ -27,5 +42,3 @@ const Search = () => {
   }
 };
 */
-}
-export default Search;

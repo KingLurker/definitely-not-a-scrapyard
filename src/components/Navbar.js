@@ -5,6 +5,8 @@ import { Icon } from "react-icons-kit";
 import { shoppingCart } from "react-icons-kit/feather/shoppingCart";
 import { auth } from "../config/Config";
 import { useNavigate } from "react-router-dom";
+import Search from "./Search";
+import SearchResults from "./SearchResults";
 
 export const Navbar = ({ user, totalProducts }) => {
   const navigate = useNavigate();
@@ -38,76 +40,79 @@ export const Navbar = ({ user, totalProducts }) => {
       </div>
       <div className="search">
         <input type="text" placeholder="Search..." />
-      </div>
-      <div className="rightside">
-        {!user && (
-          <>
-            <div>
-              <Link className="navlink" to="signup">
-                SIGN UP
-              </Link>
-            </div>
-            <div>
-              <Link className="navlink" to="login">
-                LOGIN
-              </Link>
-            </div>
-          </>
-        )}
+        <div>
+          <SearchResults />
+        </div>
+        <div className="rightside">
+          {!user && (
+            <>
+              <div>
+                <Link className="navlink" to="signup">
+                  SIGN UP
+                </Link>
+              </div>
+              <div>
+                <Link className="navlink" to="login">
+                  LOGIN
+                </Link>
+              </div>
+            </>
+          )}
 
-        {user && !isAdmin && (
-          <>
-            <div>
-              <Link className="navlink" to="/">
-                {user}
-              </Link>
-            </div>
-            <div className="cart-menu-btn">
-              <Link className="navlink" to="cart">
-                <Icon icon={shoppingCart} size={20} />
-              </Link>
-              <span className="cart-indicator">{totalProducts}</span>
-            </div>
-            <div className="btn btn-danger btn-md" onClick={handleLogout}>
-              LOGOUT
-            </div>
-          </>
-        )}
+          {user && !isAdmin && (
+            <>
+              <div>
+                <Link className="navlink" to="/">
+                  {user}
+                </Link>
+              </div>
+              <div className="cart-menu-btn">
+                <Link className="navlink" to="cart">
+                  <Icon icon={shoppingCart} size={20} />
+                </Link>
+                <span className="cart-indicator">{totalProducts}</span>
+              </div>
+              <div className="btn btn-danger btn-md" onClick={handleLogout}>
+                LOGOUT
+              </div>
+            </>
+          )}
 
-        {isAdmin && (
-          <>
-            {/* Same HTML structure for the admin, for testing purposes */}
-            <div>
-              <Link className="navlink" to="modifyusers">
-                MODIFY USERS
-              </Link>
-            </div>
-            <div>
-              <Link className="navlink" to="modifyitems">
-                MODIFY ITEMS
-              </Link>
-            </div>
-            <div>
-              <Link className="navlink" to="coupons">
-                MANAGE COUPONS
-              </Link>
-            </div>
-            <div>
-              <Link className="navlink" to="/">
-                Admin: {user}
-              </Link>
-            </div>
-            <div className="cart-menu-btn">
-              <Link className="navlink" to="cart">
-                <Icon icon={shoppingCart} size={20} />
-              </Link>
-              <span className="cart-indicator">{totalProducts}</span>
-            </div>
-            <div className="btn btn-danger btn-md" onClick={handleLogout}>
-              LOGOUT
-            </div>
-          </>
-        )}
+          {isAdmin && (
+            <>
+              {/* Same HTML structure for the admin, for testing purposes */}
+              <div>
+                <Link className="navlink" to="modifyusers">
+                  MODIFY USERS
+                </Link>
+              </div>
+              <div>
+                <Link className="navlink" to="modifyitems">
+                  MODIFY ITEMS
+                </Link>
+              </div>
+              <div>
+                <Link className="navlink" to="coupons">
+                  MANAGE COUPONS
+                </Link>
+              </div>
+              <div>
+                <Link className="navlink" to="/">
+                  Admin: {user}
+                </Link>
+              </div>
+              <div className="cart-menu-btn">
+                <Link className="navlink" to="cart">
+                  <Icon icon={shoppingCart} size={20} />
+                </Link>
+                <span className="cart-indicator">{totalProducts}</span>
+              </div>
+              <div className="btn btn-danger btn-md" onClick={handleLogout}>
+                LOGOUT
+              </div>
+            </>
+          )}
+        </div>
       </div>
     </div>
   );

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Navbar } from "./Navbar";
 import { Products } from "./Products";
 import { auth, fs } from "../config/Config";
-import { IndividualFilteredProduct } from "./IndividualSortedProducts";
+import { IndividualFilteredProduct } from "./IndividualFilteredProducts";
 import { doc, getDoc, getDocs, collection, setDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 
@@ -102,16 +102,18 @@ export const Home = () => {
     //{id: 'Quantity', text 'Quantity'}, need to add to db         
 ])
 
-  const [totalProducts, setTotalProducts]=useState('');
+  const [totalProducts]=useState('');
   const [active, setActive]=useState('');
   const [category, setCategory]=useState('');
+  const [filteredProducts, setFilteredProducts]=useState([]);
 
+  //Sort & unsorted states
   const handleChange=(individualSpan)=>{
     setActive(individualSpan.id);
     setCategory(individualSpan.text);
     filterFunction(individualSpan.text);
 }
-  const [filteredProducts, setFilteredProducts]=useState([]);
+ 
   // Sorts by increasing
   const filterFunction = () => {
     if (products.length > 1) {
