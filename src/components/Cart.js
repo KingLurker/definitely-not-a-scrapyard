@@ -145,7 +145,7 @@ export const Cart = () => {
 
   // getting the TotalProductPrice from cartProducts in a seperate array
   const price = cartProducts.map((cartProduct) => {
-    return cartProduct.TotalProductPrice;
+    return (cartProduct.TotalProductPrice * 1.0825).toFixed(2);
   });
 
   // reducing the price in a single value
@@ -208,7 +208,12 @@ export const Cart = () => {
               Total No of Products: <span>{totalQty}</span>
             </div>
             <div>
-              Total Price to Pay: <span>$ {totalPrice}</span>
+              Total Price to Pay: <span>$ {Number(totalPrice).toString()}</span>
+            </div>
+            <div>
+              Coupon:
+              <br></br>
+              <input className="form-control"></input>
             </div>
             <br></br>
             <StripeCheckout
@@ -217,7 +222,7 @@ export const Cart = () => {
               billingAddress
               shippingAddress
               name="All Products"
-              amount={totalPrice * 100}
+              amount={totalPrice * 100 * 1.0825}
             ></StripeCheckout>
           </div>
         </div>
