@@ -130,7 +130,7 @@ export const AddProduct = () => {
       setUploadError(error.message);
     }
   };
-  return (
+  return ( 
     <div className="container">
       <br></br>
       <br></br>
@@ -147,6 +147,7 @@ export const AddProduct = () => {
         className="form-group"
         onSubmit={handleAddProducts}
       >
+        
         <label>Product Title</label>
         <input
           type="text"
