@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import logo from "../assets/logo.png";
+import logo from "../assets/Logo 2.png";
 import { Icon } from "react-icons-kit";
 import { shoppingCart } from "react-icons-kit/feather/shoppingCart";
 import { auth } from "../config/Config";
@@ -73,6 +73,21 @@ export const Navbar = ({ user, totalProducts }) => {
             <div>
               <Link className="navlink" to="addproduct">
                 ADD PRODUCTS
+              </Link>
+            </div>
+            <div>
+              <Link className="navlink" to="modifyusers">
+                MODIFY USERS
+              </Link>
+            </div>
+            <div>
+              <Link className="navlink" to="modifyitems">
+                MODIFY ITEMS
+              </Link>
+            </div>
+            <div>
+              <Link className="navlink" to="coupons">
+                MANAGE COUPONS
               </Link>
             </div>
             <div>

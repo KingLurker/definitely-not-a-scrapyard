@@ -8,7 +8,7 @@ import {
 import { collection, addDoc } from "firebase/firestore";
 import { fs } from "../config/Config"; // Ensure 'db' is your initialized Firestore instance
 
-export const AddProduct = () => {
+export const ModCoupons = () => {
   //   const [title, setTitle] = useState("");
   //   const [description, setDescription] = useState("");
   //   const [price, setPrice] = useState("");
@@ -130,7 +130,7 @@ export const AddProduct = () => {
       setUploadError(error.message);
     }
   };
-  return ( 
+  return (
     <div className="container">
       <br></br>
       <br></br>
@@ -147,7 +147,6 @@ export const AddProduct = () => {
         className="form-group"
         onSubmit={handleAddProducts}
       >
-        
         <label>Product Title</label>
         <input
           type="text"
