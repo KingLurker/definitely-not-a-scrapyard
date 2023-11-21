@@ -60,7 +60,7 @@
 }
 
 .navbar .logo{
-  width: 200px;
+  width: 150px;
   height: auto;
 }
 
@@ -100,16 +100,6 @@
   text-decoration: none;
   color: #000;
 }
-
-/* search bar */
-.navbar .search {
-  margin-left: 44%;
-  margin-top: -6px;
-  position:absolute;
-  align-items: center;
-  width:100%;
-}
-
 
 /* products */
 .products-box{
