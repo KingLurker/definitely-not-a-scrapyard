@@ -86,23 +86,30 @@ export const ModUsers = () => {
       </ol>
 
       {selectedUser && (
-        <div className="user-actions">
-          <h3>Selected User: {selectedUser.Email}</h3>
-          <input
-            type="text"
-            placeholder="New Email"
-            value={newEmail}
-            onChange={(e) => setNewEmail(e.target.value)}
-          />
-          <input
-            type="password"
-            placeholder="New Password"
-            value={newPassword}
-            onChange={(e) => setNewPassword(e.target.value)}
-          />
-          <button onClick={handleSubmitChanges}>Submit Changes</button>
-          <button onClick={() => handleDeleteUser(selectedUser.id)}>Delete User</button>
-        </div>
+        selectedUser.Email === "admin@dnas.com" ? (
+          <div className="admin-message">
+            <h3>Selected User: {selectedUser.Email}</h3>
+            <p style={{ color: 'red' }}>ADMIN USER</p>
+          </div>
+        ) : (
+          <div className="user-actions">
+            <h3>Selected User: {selectedUser.Email}</h3>
+            <input
+              type="text"
+              placeholder="New Email"
+              value={newEmail}
+              onChange={(e) => setNewEmail(e.target.value)}
+            />
+            <input
+              type="password"
+              placeholder="New Password"
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
+            />
+            <button onClick={handleSubmitChanges}>Submit Changes</button>
+            <button onClick={() => handleDeleteUser(selectedUser.id)}>Delete User</button>
+          </div>
+        )
       )}
     </div>
   );

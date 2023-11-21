@@ -32,6 +32,9 @@ export const Navbar = ({ user, totalProducts }) => {
           <img src={logo} alt="logo" />
         </div>
       </div>
+      <div className="search">
+        <input type="text" placeholder="Search..."/>
+      </div>
       <div className="rightside">
         {!user && (
           <>
