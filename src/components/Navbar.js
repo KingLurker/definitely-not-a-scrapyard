@@ -5,8 +5,6 @@ import { Icon } from "react-icons-kit";
 import { shoppingCart } from "react-icons-kit/feather/shoppingCart";
 import { auth } from "../config/Config";
 import { useNavigate } from "react-router-dom";
-import Search from "./Search";
-import SearchResults from "./SearchResults";
 
 export const Navbar = ({ user, totalProducts }) => {
   const navigate = useNavigate();
@@ -38,11 +36,6 @@ export const Navbar = ({ user, totalProducts }) => {
           <img src={logo} alt="logo" />
         </div>
       </div>
-      <div className="search">
-        <input type="text" placeholder="Search..." />
-        <div>
-          <SearchResults />
-        </div>
         <div className="rightside">
           {!user && (
             <>
@@ -113,7 +106,7 @@ export const Navbar = ({ user, totalProducts }) => {
             </>
           )}
         </div>
-      </div>
+      
     </div>
   );
 };

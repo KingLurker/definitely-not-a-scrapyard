@@ -12,3 +12,5 @@ export const Products = ({ products, addToCart }) => {
     ></IndividualProduct>
   ));
 };
+
+
