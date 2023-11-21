@@ -7,74 +7,9 @@ import {
 } from "firebase/storage";
 import { collection, addDoc } from "firebase/firestore";
 import { fs } from "../config/Config"; // Ensure 'db' is your initialized Firestore instance
+import { ModItems } from "./ModItems";
 
-export const AddProduct = () => {
-  //   const [title, setTitle] = useState("");
-  //   const [description, setDescription] = useState("");
-  //   const [price, setPrice] = useState("");
-  //   const [image, setImage] = useState(null);
-
-  //   const [imageError, setImageError] = useState("");
-
-  //   const [successMsg, setSuccessMsg] = useState("");
-  //   const [uploadError, setUploadError] = useState("");
-
-  //   const types = ["image/jpg", "image/jpeg", "image/png", "image/PNG"];
-  //   const handleProductImg = (e) => {
-  //     let selectedFile = e.target.files[0];
-  //     if (selectedFile) {
-  //       if (selectedFile && types.includes(selectedFile.type)) {
-  //         setImage(selectedFile);
-  //         setImageError("");
-  //       } else {
-  //         setImage(null);
-  //         setImageError("Please select a valid image file type");
-  //       }
-  //     } else {
-  //       console.log("please select your file");
-  //     }
-  //   };
-
-  //   const handleAddProducts = (e) => {
-  //     e.preventDefault();
-  //     const uploadTask = storage.ref("product-images/${image.name}").put(image);
-  //     uploadTask.on(
-  //       "state_changed",
-  //       (snapshot) => {
-  //         const progress =
-  //           (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-  //         console.log(progress);
-  //       },
-  //       (error) => setUploadError(error.message),
-  //       () => {
-  //         storage
-  //           .ref("product-images")
-  //           .child(image)
-  //           .getDownload()
-  //           .then((url) => {
-  //             fs.collection("products").add({
-  //               title,
-  //               description,
-  //               price: Number(price),
-  //               url,
-  //             });
-  //           })
-  //           .then(() => {
-  //             setSuccessMsg("Product added successfully");
-  //             setTitle("");
-  //             setDescription("");
-  //             setPrice("");
-  //             document.getElementById("file").value = "";
-  //             setImageError("");
-  //             setUploadError("");
-  //             setTimeout(() => {
-  //               setSuccessMsg("");
-  //             }, 3000);
-  //           })
-  //           .catch((error) => setUploadError(error.message));
-  //       }
-  //     );
-  //   };
+export const ModifyItems = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
@@ -130,7 +65,7 @@ export const AddProduct = () => {
       setUploadError(error.message);
     }
   };
-  return ( 
+  return (
     <div className="container">
       <br></br>
       <br></br>
@@ -147,7 +82,6 @@ export const AddProduct = () => {
         className="form-group"
         onSubmit={handleAddProducts}
       >
-        
         <label>Product Title</label>
         <input
           type="text"
@@ -203,6 +137,10 @@ export const AddProduct = () => {
           <div className="error-msg">{uploadError}</div>
         </>
       )}
+
+      <div>
+        <ModItems></ModItems>
+      </div>
     </div>
   );
 };

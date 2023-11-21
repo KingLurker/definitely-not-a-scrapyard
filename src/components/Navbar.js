@@ -25,15 +25,19 @@ export const Navbar = ({ user, totalProducts }) => {
     console.log("Is Admin:", isAdmin);
   }, [user, isAdmin]);
 
+  const handleHome = () => {
+    navigate("/");
+  };
+
   return (
     <div className="navbar">
       <div className="leftside">
-        <div className="logo">
+        <div className="logo" onClick={handleHome}>
           <img src={logo} alt="logo" />
         </div>
       </div>
       <div className="search">
-        <input type="text" placeholder="Search..."/>
+        <input type="text" placeholder="Search..." />
       </div>
       <div className="rightside">
         {!user && (
@@ -73,11 +77,6 @@ export const Navbar = ({ user, totalProducts }) => {
         {isAdmin && (
           <>
             {/* Same HTML structure for the admin, for testing purposes */}
-            <div>
-              <Link className="navlink" to="addproduct">
-                ADD PRODUCTS
-              </Link>
-            </div>
             <div>
               <Link className="navlink" to="modifyusers">
                 MODIFY USERS

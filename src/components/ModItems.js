@@ -1,207 +1,69 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { fs } from "../config/Config";
 import {
-  ref as storageRef,
-  getStorage,
-  uploadBytes,
-  getDownloadURL,
-} from "firebase/storage";
-import { collection, addDoc } from "firebase/firestore";
-import { fs } from "../config/Config"; // Ensure 'db' is your initialized Firestore instance
+  getDocs,
+  collection,
+  updateDoc,
+  doc,
+  deleteDoc,
+} from "firebase/firestore";
 
 export const ModItems = () => {
-  //   const [title, setTitle] = useState("");
-  //   const [description, setDescription] = useState("");
-  //   const [price, setPrice] = useState("");
-  //   const [image, setImage] = useState(null);
+  const [products, setProducts] = useState([]);
 
-  //   const [imageError, setImageError] = useState("");
+  // Fetch the products from Firestore
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const productsCollectionRef = collection(fs, "products");
+      const productDocs = await getDocs(productsCollectionRef);
+      const productList = productDocs.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setProducts(productList);
+    };
 
-  //   const [successMsg, setSuccessMsg] = useState("");
-  //   const [uploadError, setUploadError] = useState("");
+    fetchProducts();
+  }, []);
 
-  //   const types = ["image/jpg", "image/jpeg", "image/png", "image/PNG"];
-  //   const handleProductImg = (e) => {
-  //     let selectedFile = e.target.files[0];
-  //     if (selectedFile) {
-  //       if (selectedFile && types.includes(selectedFile.type)) {
-  //         setImage(selectedFile);
-  //         setImageError("");
-  //       } else {
-  //         setImage(null);
-  //         setImageError("Please select a valid image file type");
-  //       }
-  //     } else {
-  //       console.log("please select your file");
-  //     }
-  //   };
-
-  //   const handleAddProducts = (e) => {
-  //     e.preventDefault();
-  //     const uploadTask = storage.ref("product-images/${image.name}").put(image);
-  //     uploadTask.on(
-  //       "state_changed",
-  //       (snapshot) => {
-  //         const progress =
-  //           (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-  //         console.log(progress);
-  //       },
-  //       (error) => setUploadError(error.message),
-  //       () => {
-  //         storage
-  //           .ref("product-images")
-  //           .child(image)
-  //           .getDownload()
-  //           .then((url) => {
-  //             fs.collection("products").add({
-  //               title,
-  //               description,
-  //               price: Number(price),
-  //               url,
-  //             });
-  //           })
-  //           .then(() => {
-  //             setSuccessMsg("Product added successfully");
-  //             setTitle("");
-  //             setDescription("");
-  //             setPrice("");
-  //             document.getElementById("file").value = "";
-  //             setImageError("");
-  //             setUploadError("");
-  //             setTimeout(() => {
-  //               setSuccessMsg("");
-  //             }, 3000);
-  //           })
-  //           .catch((error) => setUploadError(error.message));
-  //       }
-  //     );
-  //   };
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [price, setPrice] = useState("");
-  const [image, setImage] = useState(null);
-
-  const [imageError, setImageError] = useState("");
-  const [successMsg, setSuccessMsg] = useState("");
-  const [uploadError, setUploadError] = useState("");
-
-  const types = ["image/jpg", "image/jpeg", "image/png", "image/PNG"];
-  const handleProductImg = (e) => {
-    let selectedFile = e.target.files[0];
-    if (selectedFile && types.includes(selectedFile.type)) {
-      setImage(selectedFile);
-      setImageError("");
-    } else {
-      setImage(null);
-      setImageError("Please select a valid image file type");
-    }
+  // Update product information
+  const updateProduct = async (id, updatedProduct) => {
+    const productDocRef = doc(fs, "products", id);
+    await updateDoc(productDocRef, updatedProduct);
+    console.log("Product updated successfully");
   };
 
-  const handleAddProducts = async (e) => {
+  // Delete product
+  const deleteProduct = async (id) => {
+    const productDocRef = doc(fs, "products", id);
+    await deleteDoc(productDocRef);
+    console.log("Product deleted successfully");
+    setProducts(products.filter((product) => product.id !== id)); // Remove the product from the local state as well
+  };
+
+  // Handler for form submission
+  const handleUpdate = (product, e) => {
     e.preventDefault();
-    // New storage reference
-    const storage = getStorage();
-    const fileRef = storageRef(storage, `product-images/${image.name}`);
-
-    try {
-      // Upload image
-      const fileSnapshot = await uploadBytes(fileRef, image);
-      const downloadURL = await getDownloadURL(fileSnapshot.ref);
-
-      // Add new document in Firestore
-      await addDoc(collection(fs, "products"), {
-        title,
-        description,
-        price: Number(price),
-        url: downloadURL,
-      });
-
-      setSuccessMsg("Product added successfully");
-      setTitle("");
-      setDescription("");
-      setPrice("");
-      setImage(null);
-      document.getElementById("file").value = "";
-      setImageError("");
-      setUploadError("");
-      setTimeout(() => {
-        setSuccessMsg("");
-      }, 3000);
-    } catch (error) {
-      setUploadError(error.message);
-    }
+    updateProduct(product.id, {
+      title: e.target.title.value,
+      description: e.target.description.value,
+      price: Number(e.target.price.value),
+    });
   };
-  return (
-    <div className="container">
-      <br></br>
-      <br></br>
-      <h1>Add Products</h1>
-      <hr></hr>
-      {successMsg && (
-        <>
-          <div className="success-msg">{successMsg}</div>
-          <br></br>
-        </>
-      )}
-      <form
-        autoComplete="off"
-        className="form-group"
-        onSubmit={handleAddProducts}
-      >
-        <label>Product Title</label>
-        <input
-          type="text"
-          className="form-control"
-          required
-          onChange={(e) => setTitle(e.target.value)}
-          value={title}
-        ></input>
-        <br></br>
-        <label>Product Description</label>
-        <input
-          type="text"
-          className="form-control"
-          required
-          onChange={(e) => setDescription(e.target.value)}
-          value={description}
-        ></input>
-        <br></br>
-        <label>Product Price</label>
-        <input
-          type="number"
-          className="form-control"
-          required
-          onChange={(e) => setPrice(e.target.value)}
-          value={price}
-        ></input>
-        <br></br>
-        <label>Upload Product Image</label>
-        <input
-          type="file"
-          id="file"
-          className="form-control"
-          required
-          onChange={handleProductImg}
-        ></input>
 
-        {imageError && (
-          <>
-            <br></br>
-            <div className="error-msg">{imageError}</div>
-          </>
-        )}
-        <br></br>
-        <div style={{ display: "flex", justifyContent: "flex-end" }}>
-          <button type="submit" className="btn btn-success btn-md">
-            SUBMIT
-          </button>
+  return (
+    <div className="product-list">
+      {products.map((product) => (
+        <div key={product.id} className="product-item">
+          <form onSubmit={(e) => handleUpdate(product, e)}>
+            <input name="title" defaultValue={product.title} />
+            <input name="description" defaultValue={product.description} />
+            <input name="price" type="number" defaultValue={product.price} />
+            <button type="submit">Update</button>
+          </form>
+          <button onClick={() => deleteProduct(product.id)}>Delete</button>
         </div>
-      </form>
-      {uploadError && (
-        <>
-          <br></br>
-          <div className="error-msg">{uploadError}</div>
-        </>
-      )}
+      ))}
     </div>
   );
 };
