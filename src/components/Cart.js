@@ -260,7 +260,7 @@ export const Cart = () => {
               billingAddress
               shippingAddress
               name="All Products"
-              amount={discountedPrice * 100 * 1.0825}
+              amount={Math.round(discountedPrice * 100 * 1.0825)}
             ></StripeCheckout>
           </div>
         </div>
