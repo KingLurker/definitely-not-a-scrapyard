@@ -15,14 +15,17 @@ const SearchBar = ({ onSearch }) => {
   };
 
   return (
-    <form onSubmit={handleSearch}>
+    <form onSubmit={handleSearch} className="searchbar-form">
       <input
         type="text"
+        className="search-input"
         placeholder="Search for products..."
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />
-      <button type="submit">Search</button>
+      <button type="submit" className="search-button">
+        Search
+      </button>
     </form>
   );
 };
@@ -159,9 +162,9 @@ export const Home = () => {
   return (
     <>
       <Navbar user={user} />
-      <div className="searchbar">
-      <SearchBar onSearch={handleSearch} />
-      </div>
+  <div className="searchbar">
+  <SearchBar onSearch={handleSearch} />
+</div>
       <div className='container-fluid'>
         <div className='filter-box'>
           <h6>Filters</h6>
@@ -219,3 +222,4 @@ export const Home = () => {
 
 
 export default Home;
+

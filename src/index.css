@@ -43,13 +43,14 @@
 }
 
 /* navbar */
-.navbar{
+.navbar {
   width: 100%;
   padding: 24px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #f6f6f6;  
+  background-color: #3d3d3d;
+  margin-top: -50px;
 }
 
 @media(max-width: 450px){
@@ -62,6 +63,7 @@
 .navbar .logo{
   width: 150px;
   height: auto;
+  padding-top: 50px;
 }
 
 .navbar .logo img{
@@ -75,6 +77,7 @@
   font-size: 16px;
   margin-right: 24px;
   align-items: center;
+  padding-top: 50px;
 }
 
 @media(max-width: 450px){
@@ -82,7 +85,8 @@
     flex-direction: column;
     justify-content: center;
     margin-top: 20px;
-    margin-right: 0px;    
+    margin-right: 0px;
+        
   }
 }
 
@@ -96,12 +100,13 @@
   }
 }
 
-.navbar .rightside div .navlink{
+.navbar .rightside div .navlink {
   text-decoration: none;
-  color: #000;
+  color: #ffffff;
+  font-weight: normal; 
 }
 
-/* products */
+
 .products-box{
   width: 100%;
   display: flex;
@@ -124,10 +129,11 @@
   transition: all 0.3s ease-in-out;
   padding: 12px;
   border-radius: 10px; 
+  border: 1px solid #3d3d3d; /* Add this line */
 }
 
 .product:hover {
-  box-shadow: 5px 5px 20px 0px rgba(0, 0, 0, 0.1);
+  box-shadow: 5px 5px 20px 0px rgba(185, 185, 185, 0.1);
 }
 
 @media(min-width: 768px){
@@ -137,8 +143,8 @@
 }
 
 .product .product-img{
-  width: 180px;
-  height: 215px;  
+  width: 250px;
+  height: 285px;  
 }
 
 .product .product-img img{
@@ -153,9 +159,9 @@
 }
 
 .product .product-text.title{
-  color: #e00a02;  
+  color: #b44200;  
   font-weight: 600;
-  font-size: 20px;
+  font-size: 15px;
   margin-top: 10px;
 }
 
@@ -170,11 +176,11 @@
 
 .product .product-text.cart-price{
   font-weight: 600;
-  color: #e00a02;
+  color: #b44200;
 }
 
 .cart-btn{
-  background-color: #e00a02 !important;
+  background-color: #b44200 !important;
 }
 
 .cart-menu-btn{
@@ -183,7 +189,7 @@
 
 .cart-menu-btn .cart-indicator{
   width: 18px;
-  background-color: #e00a02;
+  background-color: #b44200;
   padding: 3px;
   border-radius: 3px;
   color: #fff;
@@ -225,7 +231,7 @@
 
 .summary-box h5{
   display: flex;  
-  border-bottom: 1px solid #e00a02;
+  border-bottom: 1px solid #b44200;
   text-align: center;
   padding: 0px;
 }
@@ -238,7 +244,9 @@
 body {
   font-size: 1.2em;
   font-family: "Helvetica Neue", Helvetica, sans-serif;
-  margin: 50px;
+  margin: 0px; /*originally 50px */
+  background-color: #2e2e2e; /* A common dark mode background color */
+  color: #ffffff;
 }
 
 .custom-counter {
@@ -315,11 +323,17 @@ body {
 
 /* searchbar */
 .searchbar {
-  margin-left: 15%;
-  margin-top: -7%;
-  position:absolute;
-  width:auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  margin-left: 190px;
+  margin-top: -142px;
+  position: absolute;
+  width: auto;
 }
+
+
 /* filter */
 .filter-products-main-box{
   width: 95%;
@@ -405,4 +419,46 @@ body {
 
 .moditems-item button:hover {
   background-color: #0056b3;
+}
+
+.searchbar2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0;
+}
+
+/* Style for the search input within the SearchBar component */
+/* Styling for the search input text box */
+.search-input {
+  padding: 10px 15px;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;  /* Adjust the font size as needed */
+  margin-right: 10px;  /* Space between the text box and the button */
+}
+
+/* Styling for the search button */
+.search-button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  background-color: #b44200;  /* Adjust the background color as needed */
+  color: white;
+  font-size: 16px;  /* Match the font size with the input */
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.search-button:hover {
+  background-color: #853100;  /* Darker shade on hover */
+}
+
+.btn-danger {
+  background-color: #b44200; /* Replace with your desired color */
+  
+}
+
+.custom-logout-btn {
+  background-color: #b44200; /* Replace with your desired color */
 }
