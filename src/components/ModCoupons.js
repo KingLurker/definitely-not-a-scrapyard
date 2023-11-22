@@ -62,9 +62,10 @@ export const ModCoupons = () => {
               type="number"
               defaultValue={coupon.discount}
             />
-            <button type="submit">Update</button>
+            <button type="submit" className="button-update">Update</button>
             <button
-              className="btn btn-danger btn-md"
+              type="button"
+              className="button-delete"
               onClick={() => deleteCoupon(coupon.id)}
             >
               Delete
@@ -74,4 +75,5 @@ export const ModCoupons = () => {
       ))}
     </div>
   );
+  
 };
