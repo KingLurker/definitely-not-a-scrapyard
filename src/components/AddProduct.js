@@ -137,7 +137,7 @@ export const ModifyItems = () => {
           <div className="error-msg">{uploadError}</div>
         </>
       )}
-
+      <br></br>
       <div>
         <ModItems></ModItems>
       </div>
