@@ -61,9 +61,10 @@ export const ModItems = () => {
             <input name="description" defaultValue={product.description} />
             <input name="price" type="number" defaultValue={product.price} />
             <input name="quantity" type="number" defaultValue={product.qty} />
-            <button type="submit">Update</button>
+            <button type="submit" className="button-update">Update</button>
             <button
-              className="btn btn-danger btn-md"
+              type="button"
+              className="button-delete"
               onClick={() => deleteProduct(product.id)}
             >
               Delete
