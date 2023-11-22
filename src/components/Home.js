@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Navbar } from "./Navbar";
 import { auth, fs } from "../config/Config";
+import { Products } from "./Products";
 import { IndividualFilteredProduct } from "./IndividualFilteredProducts";
 import { doc, getDoc, getDocs, collection, setDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
@@ -72,6 +73,8 @@ export const Home = () => {
     return () => unsubscribe();
   }, []);
 
+
+  //Get all items for cards
   useEffect(() => {
     const getProducts = async () => {
       const productsCol = collection(fs, "products");
@@ -120,6 +123,39 @@ export const Home = () => {
     }
   };
 
+
+  //Sorting function
+  const [spans]=useState([
+    {id: 'Price', text: 'Price'},
+    {id: 'Quantity', text: 'Quantity'}
+  ])
+
+  const [totalProducts, setTotalProducts]=useState('');
+  const [active, setActive]=useState('');
+  const [category, setCategory]=useState('');
+
+  const handleChange=(individualSpan)=>{
+    setActive(individualSpan.id);
+    setCategory(individualSpan.text);
+    filterFunction(individualSpan.text);
+  }
+  const [filteredProducts, setFilteredProducts]=useState([]);
+  // Sorts by increasing
+  const filterFunction = () => {
+    if (products.length > 1) {
+      const filtered = [...products].sort((a, b) => a.price - b.price);
+      setFilteredProducts(filtered);
+  } else {
+    console.log('No products to sort');
+  }
+  };
+  const returntoAllProducts=()=>{
+      setActive('');
+    setCategory('');
+    setFilteredProducts([]);
+  }
+
+
   return (
     <>
       <Navbar user={user} />
@@ -127,6 +163,44 @@ export const Home = () => {
       <SearchBar onSearch={handleSearch} />
       </div>
       <div className='container-fluid'>
+        <div className='filter-box'>
+          <h6>Filters</h6>
+          {spans.map((individualSpan,index)=>(
+                    <span key={index} id={individualSpan.id}
+                    onClick={()=>handleChange(individualSpan)}
+                    className={individualSpan.id===active ? active:'deactive'}>{individualSpan.text}</span>
+                ))}
+        </div>
+        </div>
+            {filteredProducts.length > 0&&(
+              <div className='my-products'>
+                  <h1 className='text-center'>{category}</h1>
+                  <a href="javascript:void(0)" onClick={returntoAllProducts}>Return to All Products</a>
+                  <div className='products-box'>
+                      {filteredProducts.map(individualFilteredProduct=>(
+                          <IndividualFilteredProduct key={individualFilteredProduct.ID}
+                          individualFilteredProduct={individualFilteredProduct}
+                          addToCart={addToCart}/>
+                      ))}
+                  </div>
+              </div>  
+            )}
+            {filteredProducts.length < 1&&(
+                <>
+                    {products.length > 0&&(
+                        <div className='my-products'>
+                            <h1 className='text-center'>All Products</h1>
+                            <div className='products-box'>
+                                <Products products={products} addToCart={addToCart}/>
+                            </div>
+                        </div>
+                    )}
+                    {products.length < 1&&(
+                        <div className='my-products please-wait'>Please wait...</div>
+                    )}
+                </>
+            )}
+               
         <div className='my-products'>
           {searchResults.length > 0 ? (
             <div className='products-box'>
@@ -138,9 +212,10 @@ export const Home = () => {
             <div>No products found...</div>
           )}
         </div>
-      </div>
     </>
   );
 };
+
+
 
 export default Home;

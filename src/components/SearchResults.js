@@ -8,7 +8,7 @@ const SearchResults = () => {
   const [products, setProducts] = useState([]);
 
   const searchProduct = async (searchTerm) => {
-    // Assuming items are stored in a collection named 'items' and you're searching 'name' field
+
     const itemsRef = collection(fs, "items");
     const q = query(itemsRef, where("name", "==", searchTerm));
 
