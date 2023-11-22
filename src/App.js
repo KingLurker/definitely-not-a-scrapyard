@@ -7,7 +7,7 @@ import { NotFound } from "./components/NotFound";
 import { ModifyItems } from "./components/AddProduct";
 import { Cart } from "./components/Cart";
 import { ModUsers } from "./components/ModUsers";
-import { ModCoupons } from "./components/ModCoupons";
+import { ManageCoupons } from "./components/ManageCoupons";
 
 function App() {
   return (
@@ -24,7 +24,10 @@ function App() {
         ></Route>
         <Route path="/cart" element={<Cart></Cart>}></Route>
         <Route path="/modifyusers" element={<ModUsers></ModUsers>}></Route>
-        <Route path="/coupons" element={<ModCoupons></ModCoupons>}></Route>
+        <Route
+          path="/coupons"
+          element={<ManageCoupons></ManageCoupons>}
+        ></Route>
       </Routes>
     </BrowserRouter>
   );

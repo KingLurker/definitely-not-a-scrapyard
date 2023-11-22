@@ -158,7 +158,7 @@ export const Cart = () => {
   const handleToken = async (token) => {
     console.log(token);
     const cart = { name: "All Products", totalPrice };
-    const response = await axios.post("https://dnas.netlify.app/checkout", {
+    const response = await axios.post("http://localhost:8080/checkout", {
       token,
       cart,
     });
@@ -255,7 +255,7 @@ export const Cart = () => {
             <br />
             <br></br>
             <StripeCheckout
-              stripeKey="pk_test_51OCSkCAZRFbpLFC7JTVTVHJnT1wWKlX2Q0PLZXGlly2HfwzBj9CEg6OdMWoBYj5C9CuO1IcLxiU8371Yr4RQjhdB00kFvO4OVM"
+              stripeKey="pk_test_51OCBCTIIejFEPErE9KQZKll56fiA6vpa8TTVnkam8kAdINbVT5qbEEczxjZiEgAZFJ9G0L0wwWs7TGeRKjGLL2wk00kHsGSD7D"
               token={handleToken}
               billingAddress
               shippingAddress

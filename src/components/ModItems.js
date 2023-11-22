@@ -48,7 +48,7 @@ export const ModItems = () => {
       title: e.target.title.value,
       description: e.target.description.value,
       price: Number(e.target.price.value),
-      qty: e.target.qty.value,
+      qty: Number(e.target.quantity.value),
     });
   };
 
@@ -62,8 +62,13 @@ export const ModItems = () => {
             <input name="price" type="number" defaultValue={product.price} />
             <input name="quantity" type="number" defaultValue={product.qty} />
             <button type="submit">Update</button>
+            <button
+              className="btn btn-danger btn-md"
+              onClick={() => deleteProduct(product.id)}
+            >
+              Delete
+            </button>
           </form>
-          <button onClick={() => deleteProduct(product.id)}>Delete</button>
         </div>
       ))}
     </div>

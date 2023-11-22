@@ -36,82 +36,84 @@ export const Navbar = ({ user, totalProducts }) => {
           <img src={logo} alt="logo" />
         </div>
       </div>
-        <div className="rightside">
-          {!user && (
-            <>
-              <div>
-                <Link className="navlink" to="signup">
-                  SIGN UP
-                </Link>
-              </div>
-              <div>
-                <Link className="navlink" to="login">
-                  LOGIN
-                </Link>
-              </div>
-            </>
-          )}
+      <div className="rightside">
+        {!user && (
+          <>
+            <div>
+              <Link className="navlink" to="signup">
+                SIGN UP
+              </Link>
+            </div>
+            <div>
+              <Link className="navlink" to="login">
+                LOGIN
+              </Link>
+            </div>
+          </>
+        )}
 
-          {user && !isAdmin && (
-            <>
-              <div>
-                <Link className="navlink" to="/">
-                  {user}
-                </Link>
-              </div>
-              <div className="cart-menu-btn">
-                <Link className="navlink" to="cart">
-                  <Icon icon={shoppingCart} size={20} />
-                </Link>
-                <span className="cart-indicator">{totalProducts}</span>
-              </div>
-              <div className="btn btn-danger btn-md" onClick={handleLogout}>
-                LOGOUT
-              </div>
-            </>
-          )}
+        {user && !isAdmin && (
+          <>
+            <div>
+              <Link className="navlink" to="/">
+                {user}
+              </Link>
+            </div>
+            <div className="cart-menu-btn">
+              <Link className="navlink" to="cart">
+                <Icon icon={shoppingCart} size={20} />
+              </Link>
+              <span className="cart-indicator">{totalProducts}</span>
+            </div>
+            <div className="btn btn-danger btn-md" onClick={handleLogout}>
+              LOGOUT
+            </div>
+          </>
+        )}
 
-          {isAdmin && (
-            <>
-              {/* Same HTML structure for the admin, for testing purposes */}
-              <div>
-                <Link className="navlink" to="modifyusers">
-                  MODIFY USERS
-                </Link>
-              </div>
-              <div>
-                <Link className="navlink" to="modifyitems">
-                  MODIFY ITEMS
-                </Link>
-              </div>
-              <div>
-                <Link className="navlink" to="https://dashboard.stripe.com/test/dashboard">
-                  ORDERS
-                </Link>
-              </div>
-              <div>
-                <Link className="navlink" to="coupons">
-                  MANAGE COUPONS
-                </Link>
-              </div>
-              <div>
-                <Link className="navlink" to="/">
-                  Admin: {user}
-                </Link>
-              </div>
-              <div className="cart-menu-btn">
-                <Link className="navlink" to="cart">
-                  <Icon icon={shoppingCart} size={20} />
-                </Link>
-                <span className="cart-indicator">{totalProducts}</span>
-              </div>
-              <div className="btn btn-danger btn-md" onClick={handleLogout}>
-                LOGOUT
-              </div>
-            </>
-          )}
-        </div>
-      
+        {isAdmin && (
+          <>
+            {/* Same HTML structure for the admin, for testing purposes */}
+            <div>
+              <Link className="navlink" to="modifyusers">
+                MODIFY USERS
+              </Link>
+            </div>
+            <div>
+              <Link className="navlink" to="modifyitems">
+                MODIFY ITEMS
+              </Link>
+            </div>
+            <div>
+              <Link
+                className="navlink"
+                to="https://dashboard.stripe.com/test/dashboard"
+              >
+                ORDERS
+              </Link>
+            </div>
+            <div>
+              <Link className="navlink" to="coupons">
+                MANAGE COUPONS
+              </Link>
+            </div>
+            <div>
+              <Link className="navlink" to="/">
+                Admin: {user}
+              </Link>
+            </div>
+            <div className="cart-menu-btn">
+              <Link className="navlink" to="cart">
+                <Icon icon={shoppingCart} size={20} />
+              </Link>
+              <span className="cart-indicator">{totalProducts}</span>
+            </div>
+            <div className="btn btn-danger btn-md" onClick={handleLogout}>
+              LOGOUT
+            </div>
+          </>
+        )}
+      </div>
     </div>
   );
 };
