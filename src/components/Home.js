@@ -162,59 +162,44 @@ export const Home = () => {
   return (
     <>
       <Navbar user={user} />
-  <div className="searchbar">
-  <SearchBar onSearch={handleSearch} />
-</div>
+      <div className="searchbar">
+        <SearchBar onSearch={handleSearch} />
+      </div>
       <div className='container-fluid'>
         <div className='filter-box'>
           <h6>Filters</h6>
-          {spans.map((individualSpan,index)=>(
-                    <span key={index} id={individualSpan.id}
-                    onClick={()=>handleChange(individualSpan)}
-                    className={individualSpan.id===active ? active:'deactive'}>{individualSpan.text}</span>
-                ))}
+          {spans.map((individualSpan, index) => (
+            <span key={index} id={individualSpan.id}
+              onClick={() => handleChange(individualSpan)}
+              className={individualSpan.id === active ? 'active' : 'deactive'}>
+              {individualSpan.text}
+            </span>
+          ))}
         </div>
-        </div>
-            {filteredProducts.length > 0&&(
-              <div className='my-products'>
-                  <h1 className='text-center'>{category}</h1>
-                  <a href="javascript:void(0)" onClick={returntoAllProducts}>Return to All Products</a>
-                  <div className='products-box'>
-                      {filteredProducts.map(individualFilteredProduct=>(
-                          <IndividualFilteredProduct key={individualFilteredProduct.ID}
-                          individualFilteredProduct={individualFilteredProduct}
-                          addToCart={addToCart}/>
-                      ))}
-                  </div>
-              </div>  
-            )}
-            {filteredProducts.length < 1&&(
-                <>
-                    {products.length > 0&&(
-                        <div className='my-products'>
-                            <h1 className='text-center'>All Products</h1>
-                            <div className='products-box'>
-                                <Products products={products} addToCart={addToCart}/>
-                            </div>
-                        </div>
-                    )}
-                    {products.length < 1&&(
-                        <div className='my-products please-wait'>Please wait...</div>
-                    )}
-                </>
-            )}
-               
-        <div className='my-products'>
-          {searchResults.length > 0 ? (
+        {filteredProducts.length > 0 ? (
+          <div className='my-products'>
+            <h1 className='text-center'>{category}</h1>
+            <a href="javascript:void(0)" onClick={returntoAllProducts}>Return to All Products</a>
+            <div className='products-box'>
+              {filteredProducts.map(individualFilteredProduct => (
+                <IndividualFilteredProduct key={individualFilteredProduct.ID}
+                  individualFilteredProduct={individualFilteredProduct}
+                  addToCart={addToCart} />
+              ))}
+            </div>
+          </div>
+        ) : searchResults.length > 0 ? (
+          <div className='my-products'>
             <div className='products-box'>
               {searchResults.map(product => (
                 <IndividualFilteredProduct key={product.ID} individualFilteredProduct={product} addToCart={addToCart} />
               ))}
             </div>
-          ) : (
-            <div>No products found...</div>
-          )}
-        </div>
+          </div>
+        ) : (
+          <div className='my-products please-wait'>Please wait...</div>
+        )}
+      </div>
     </>
   );
 };
