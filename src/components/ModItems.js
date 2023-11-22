@@ -53,9 +53,9 @@ export const ModItems = () => {
   };
 
   return (
-    <div className="product-list">
+    <div className="moditems">
       {products.map((product) => (
-        <div key={product.id} className="product-item">
+        <div key={product.id} className="moditems-item">
           <form onSubmit={(e) => handleUpdate(product, e)}>
             <input name="title" defaultValue={product.title} />
             <input name="description" defaultValue={product.description} />

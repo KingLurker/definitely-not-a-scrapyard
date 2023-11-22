@@ -85,7 +85,7 @@ export const Navbar = ({ user, totalProducts }) => {
                 </Link>
               </div>
               <div>
-                <Link className="navlink" to="orders">
+                <Link className="navlink" to="https://dashboard.stripe.com/test/dashboard">
                   ORDERS
                 </Link>
               </div>

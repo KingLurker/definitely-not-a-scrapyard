@@ -369,3 +369,40 @@ body {
 .filter-box span.Price{
   color: #03940a;
 }
+
+.moditems {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.moditems-item {
+  background-color: #f0f0f0;
+  border-radius: 5px;
+  padding: 10px;
+  width: 300px;
+}
+
+.moditems-item form {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.moditems-item input[type="number"],
+.moditems-item input[type="text"] {
+  padding: 5px;
+}
+
+.moditems-item button {
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.moditems-item button:hover {
+  background-color: #0056b3;
+}
