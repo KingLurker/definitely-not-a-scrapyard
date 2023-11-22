@@ -250,7 +250,7 @@ export const Cart = () => {
             <br />
             <div>
               Total Price to Pay after discount:{" "}
-              <span>$ {discountedPrice}</span>
+              <span>$ {(discountedPrice * 1.0825).toFixed(2)}</span>
             </div>
             <br />
             <br></br>
