@@ -85,6 +85,11 @@ export const Navbar = ({ user, totalProducts }) => {
                 </Link>
               </div>
               <div>
+                <Link className="navlink" to="orders">
+                  ORDERS
+                </Link>
+              </div>
+              <div>
                 <Link className="navlink" to="coupons">
                   MANAGE COUPONS
                 </Link>

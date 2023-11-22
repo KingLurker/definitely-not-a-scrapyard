@@ -145,7 +145,7 @@ export const Cart = () => {
 
   // getting the TotalProductPrice from cartProducts in a seperate array
   const price = cartProducts.map((cartProduct) => {
-    return (cartProduct.TotalProductPrice * 1.0825).toFixed(2);
+    return cartProduct.TotalProductPrice;
   });
 
   // reducing the price in a single value
@@ -187,6 +187,32 @@ export const Cart = () => {
     }
   };
 
+  const [couponCode, setCouponCode] = useState("");
+  const [discount, setDiscount] = useState(0);
+
+  const handleCouponCodeChange = (e) => {
+    setCouponCode(e.target.value);
+  };
+
+  const handleApplyCoupon = async () => {
+    const couponsCollectionRef = collection(fs, "coupons");
+    const couponsSnapshot = await getDocs(couponsCollectionRef);
+    const coupons = couponsSnapshot.docs.map((doc) => doc.data());
+
+    const matchedCoupon = coupons.find((c) => c.code === couponCode);
+    if (matchedCoupon) {
+      setDiscount(matchedCoupon.discount);
+      toast.info(
+        `Coupon applied! ${matchedCoupon.discount * 100}% off your purchase.`
+      );
+    } else {
+      toast.error("Invalid coupon code.");
+    }
+  };
+
+  // Adjust the totalPrice based on the discount
+  const discountedPrice = (totalPrice * (1 - discount)).toFixed(2);
+
   return (
     <>
       <Navbar user={user} totalProducts={totalProducts} />
@@ -208,13 +234,25 @@ export const Cart = () => {
               Total No of Products: <span>{totalQty}</span>
             </div>
             <div>
-              Total Price to Pay: <span>$ {Number(totalPrice).toString()}</span>
+              Total Price to Pay:{" "}
+              <span>$ {(totalPrice * 1.0825).toFixed(2)}</span>
             </div>
             <div>
               Coupon:
-              <br></br>
-              <input className="form-control"></input>
+              <br />
+              <input
+                className="form-control"
+                value={couponCode}
+                onChange={handleCouponCodeChange}
+              />
+              <button onClick={handleApplyCoupon}>Apply Coupon</button>
             </div>
+            <br />
+            <div>
+              Total Price to Pay after discount:{" "}
+              <span>$ {discountedPrice}</span>
+            </div>
+            <br />
             <br></br>
             <StripeCheckout
               stripeKey="pk_test_51OCSkCAZRFbpLFC7JTVTVHJnT1wWKlX2Q0PLZXGlly2HfwzBj9CEg6OdMWoBYj5C9CuO1IcLxiU8371Yr4RQjhdB00kFvO4OVM"
